@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7EFAE38E-A0B2-459E-9D92-8604181B44FE}</ProjectGuid>
+    <RootNamespace>netsgui</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>comctl32.lib;netapi32.lib;ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>comctl32.lib;netapi32.lib;ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Image Include="..\..\netscan\compic.bmp" />
+    <Image Include="..\..\netscan\icn_gray.bmp" />
+    <Image Include="..\..\netscan\icn_green.bmp" />
+    <Image Include="..\..\netscan\icn_red.bmp" />
+    <Image Include="..\..\netscan\standard.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\netscan\AboutWindow.h" />
+    <ClInclude Include="..\..\netscan\ApplicationWindow.h" />
+    <ClInclude Include="..\..\netscan\CheckBox.h" />
+    <ClInclude Include="..\..\netscan\ColorChooserDialog.h" />
+    <ClInclude Include="..\..\netscan\ComboBox.h" />
+    <ClInclude Include="..\..\netscan\Computer.h" />
+    <ClInclude Include="..\..\netscan\Container.h" />
+    <ClInclude Include="..\..\netscan\Control.h" />
+    <ClInclude Include="..\..\netscan\control_ids.h" />
+    <ClInclude Include="..\..\netscan\Debugger.h" />
+    <ClInclude Include="..\..\netscan\drawing_tools.h" />
+    <ClInclude Include="..\..\netscan\GarbageBin.h" />
+    <ClInclude Include="..\..\netscan\IDGenerator.h" />
+    <ClInclude Include="..\..\netscan\ImageControl.h" />
+    <ClInclude Include="..\..\netscan\ImageList.h" />
+    <ClInclude Include="..\..\netscan\IPControl.h" />
+    <ClInclude Include="..\..\netscan\leaker.h" />
+    <ClInclude Include="..\..\netscan\ListBox.h" />
+    <ClInclude Include="..\..\netscan\MainMenu.h" />
+    <ClInclude Include="..\..\netscan\MainWindow.h" />
+    <ClInclude Include="..\..\netscan\manufacturers.h" />
+    <ClInclude Include="..\..\netscan\Menu.h" />
+    <ClInclude Include="..\..\netscan\MenuItem.h" />
+    <ClInclude Include="..\..\netscan\MouseCursor.h" />
+    <ClInclude Include="..\..\netscan\OwnerDrawControl.h" />
+    <ClInclude Include="..\..\netscan\PopupMenu.h" />
+    <ClInclude Include="..\..\netscan\PushButton.h" />
+    <ClInclude Include="..\..\netscan\RadioButton.h" />
+    <ClInclude Include="..\..\netscan\StandaloneWindow.h" />
+    <ClInclude Include="..\..\netscan\Static.h" />
+    <ClInclude Include="..\..\netscan\StatusBar.h" />
+    <ClInclude Include="..\..\netscan\stc_messages.h" />
+    <ClInclude Include="..\..\netscan\TabControl.h" />
+    <ClInclude Include="..\..\netscan\TabPage.h" />
+    <ClInclude Include="..\..\netscan\TextField.h" />
+    <ClInclude Include="..\..\netscan\ToolBar.h" />
+    <ClInclude Include="..\..\netscan\ToolButton.h" />
+    <ClInclude Include="..\..\netscan\ToolTip.h" />
+    <ClInclude Include="..\..\netscan\TreeControl.h" />
+    <ClInclude Include="..\..\netscan\TreeEntry.h" />
+    <ClInclude Include="..\..\netscan\TreeItem.h" />
+    <ClInclude Include="..\..\netscan\utils.h" />
+    <ClInclude Include="..\..\netscan\Window.h" />
+    <ClInclude Include="..\..\netscan\wind_upg.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\netscan\AboutWindow.cpp" />
+    <ClCompile Include="..\..\netscan\ApplicationWindow.cpp" />
+    <ClCompile Include="..\..\netscan\CheckBox.cpp" />
+    <ClCompile Include="..\..\netscan\ColorChooserDialog.cpp" />
+    <ClCompile Include="..\..\netscan\ComboBox.cpp" />
+    <ClCompile Include="..\..\netscan\Container.cpp" />
+    <ClCompile Include="..\..\netscan\Control.cpp" />
+    <ClCompile Include="..\..\netscan\control_ids.cpp" />
+    <ClCompile Include="..\..\netscan\Debugger.cpp" />
+    <ClCompile Include="..\..\netscan\GarbageBin.cpp" />
+    <ClCompile Include="..\..\netscan\IDGenerator.cpp" />
+    <ClCompile Include="..\..\netscan\ImageControl.cpp" />
+    <ClCompile Include="..\..\netscan\ImageList.cpp" />
+    <ClCompile Include="..\..\netscan\IPControl.cpp" />
+    <ClCompile Include="..\..\netscan\ListBox.cpp" />
+    <ClCompile Include="..\..\netscan\main.cpp" />
+    <ClCompile Include="..\..\netscan\MainMenu.cpp" />
+    <ClCompile Include="..\..\netscan\MainWindow.cpp" />
+    <ClCompile Include="..\..\netscan\Menu.cpp" />
+    <ClCompile Include="..\..\netscan\MenuItem.cpp" />
+    <ClCompile Include="..\..\netscan\MouseCursor.cpp" />
+    <ClCompile Include="..\..\netscan\OwnerDrawControl.cpp" />
+    <ClCompile Include="..\..\netscan\PopupMenu.cpp" />
+    <ClCompile Include="..\..\netscan\PushButton.cpp" />
+    <ClCompile Include="..\..\netscan\RadioButton.cpp" />
+    <ClCompile Include="..\..\netscan\StandaloneWindow.cpp" />
+    <ClCompile Include="..\..\netscan\Static.cpp" />
+    <ClCompile Include="..\..\netscan\StatusBar.cpp" />
+    <ClCompile Include="..\..\netscan\TabControl.cpp" />
+    <ClCompile Include="..\..\netscan\TabPage.cpp" />
+    <ClCompile Include="..\..\netscan\TextField.cpp" />
+    <ClCompile Include="..\..\netscan\ToolBar.cpp" />
+    <ClCompile Include="..\..\netscan\ToolButton.cpp" />
+    <ClCompile Include="..\..\netscan\ToolTip.cpp" />
+    <ClCompile Include="..\..\netscan\TreeControl.cpp" />
+    <ClCompile Include="..\..\netscan\TreeEntry.cpp" />
+    <ClCompile Include="..\..\netscan\TreeItem.cpp" />
+    <ClCompile Include="..\..\netscan\utils.cpp" />
+    <ClCompile Include="..\..\netscan\Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

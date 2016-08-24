@@ -2,7 +2,6 @@
 
 #include "MainWindow.h"
 #include "AboutWindow.h"
-#include "netsgui/resource.h"
 
 // headers of GUI elements
 
@@ -40,6 +39,7 @@
 #include <Sddl.h>
 #include <AclAPI.h>
 // #include <netmon.h>
+#include "netsgui/resource.h"
 
 HANDLE CMainWindow::computerThreadMutex;
 vector<HANDLE> CMainWindow::threads;
@@ -63,7 +63,7 @@ CMainWindow* CMainWindow::instance = NULL;
 /**
  * Creates a new instance, based on the passed-in handle
  */
-CMainWindow::CMainWindow(HINSTANCE _hInst):CStandaloneWindow(0, 0, 640, 480, 0, _hInst), 
+CMainWindow::CMainWindow(HINSTANCE _hInst) : CStandaloneWindow(0, 0, 640, 480, 0, _hInst), 
 mainTab(0), statusBar(0), ipRangesGo(0), ipRangesOptions(0), ipRangesTree(0)
 {
 	// Settings that affect how the window will look
@@ -71,7 +71,7 @@ mainTab(0), statusBar(0), ipRangesGo(0), ipRangesOptions(0), ipRangesTree(0)
     progInstance = _hInst;
 	wcscpy(szClassName, L"netscanner");
 	wcscpy(text, L"Net Scan 0.2");
-	style = WS_OVERLAPPEDWINDOW ;
+	style = WS_OVERLAPPEDWINDOW  | WS_EX_APPWINDOW;
 	styleEx = 0;
 
     instance = this;
@@ -95,12 +95,14 @@ CMainWindow::~CMainWindow()
  */
 bool CMainWindow::createToolBar(HWND hWndParent)
 {
-/*	mainToolbar			= new CToolBar(this, MAKEINTRESOURCE(IDB_BITMAP1), 22);
+	mainToolbar			= new CToolBar(this, MAKEINTRESOURCE(IDB_BITMAP1), 22);
 	btnNewMap			= new CToolButton(0, 0, BTN_NEW, L"New scan");
 	
 	mainToolbar->addButton(btnNewMap);
 	mainToolbar->addSeparator();
-*/
+
+	mainToolbar->autoSize();
+
 	return true;
 } 
 
@@ -140,8 +142,8 @@ int statSize[] = {120, 240, -1};
 	SetMenu(hwnd, mainMenu->getHandle());
 	DrawMenuBar(hwnd);
 
-	mainTab = new CTabControl(this, 0, h - 30, w, h, TAB_MAIN);
-	//mainTab->setButtonStyle();
+	mainTab = new CTabControl(this, 10, 60, w, h, TAB_MAIN);
+	mainTab->setButtonStyle();
 	ipRangeTabPage = new CTabPage(L"IP Range Scan");
 	domainsTabPage = new CTabPage(L"Domain Scan");	
 
@@ -159,7 +161,7 @@ int statSize[] = {120, 240, -1};
 
 	ipRangesTree = new CTreeControl(this, 5, 90, 320, 400, TREE_IPLIST);
 	ipRangesTree->setImages(imgTree);
-	//ipRangesRestricted = new CCheckBox(this, 360, 65, 130, 20, 999, L"Restricted range", L"Check this if you don't want the ip \"roll over\"");
+	ipRangesRestricted = new CCheckBox(this, 360, 65, 130, 20, 999, L"Restricted range", L"Check this if you don't want the ip \"roll over\"");
 
 	statusBar = new CStatusBar(this, STB_MAIN, 3, statSize);
 	return true;
@@ -237,6 +239,7 @@ void getIpPartsAsNumbers(const wchar_t* ip, wchar_t* ip1, wchar_t* ip2, wchar_t*
 
 void CMainWindow::onGo(CMainWindow * instance)
 {
+	instance->mainToolbar->autoSize();
 	// here build the list of IPs
 	wchar_t cip1_1[256],cip1_2[256],cip1_3[256],cip1_4[256],cip2_1[256],cip2_2[256],cip2_3[256],cip2_4[256];
 	wstring startIp = instance->ipFrom->getText();
@@ -817,7 +820,7 @@ DWORD CMainWindow::ComputerThread(LPVOID computer)
 	case WAIT_OBJECT_0: 
 		try 
 		{
-			for(int j=range->start; j<=range->end; j++)
+			for(size_t j=range->start; j<=range->end; j++)
 			{
 				if(j < range->theWindow->computers.size())
 				{
@@ -844,7 +847,8 @@ DWORD CMainWindow::ComputerThread(LPVOID computer)
 
 						do // begin do
 						{
-							nStatus = NetServerTransportEnum((LPWSTR)name.c_str(), dwLevel, (LPBYTE *) &pBuf, dwPrefMaxLen, &dwEntriesRead, &dwTotalEntries, &dwResumeHandle);
+							nStatus = NetServerTransportEnum((LPWSTR)name.c_str(), dwLevel, (LPBYTE *) &pBuf, dwPrefMaxLen, 
+								&dwEntriesRead, &dwTotalEntries, &dwResumeHandle);
 							if ((nStatus == NERR_Success) || (nStatus == ERROR_MORE_DATA))
 							{
 								if ((pTmpBuf = pBuf) != NULL)
@@ -1233,7 +1237,7 @@ LRESULT CMainWindow::onSize(CMainWindow* instance, WPARAM wParam, LPARAM lParam)
 	{
 	RECT rtr = rt;
 		rtr.left = 0;
-		rtr.top = 0;
+		rtr.top = 32;
 		rtr.bottom = rt.bottom;		
 		rtr.right = rt.right;
 		instance->mainTab->move(rtr);
@@ -1247,7 +1251,7 @@ LRESULT CMainWindow::onSize(CMainWindow* instance, WPARAM wParam, LPARAM lParam)
 	if(instance->ipRangesGo)
 	{
 		RECT rtt = rt;
-		rtt.left = rtt.right - instance->ipRangesGo->width();
+		rtt.left = rtt.right - instance->ipRangesGo->width() - 4;
 		rtt.top = instance->ipRangesGo->top();
 		rtt.right = rtt.left + instance->ipRangesGo->width();
 		rtt.bottom = rtt.top + instance->ipRangesGo->height();
@@ -1268,9 +1272,14 @@ LRESULT CMainWindow::onSize(CMainWindow* instance, WPARAM wParam, LPARAM lParam)
 		RECT rtt = rt;
 		rtt.left = instance->ipRangesTree->left();
 		rtt.top = instance->ipRangesTree->top();
-		rtt.right = instance->ipRangesTree->width() + instance->ipRangesTree->left();
+		rtt.right = ((rt.right - rt.left) / 3) + instance->ipRangesTree->left();
 		rtt.bottom = rt.bottom - 25;
 		instance->ipRangesTree->move(rtt);
+	}
+
+	if (instance->mainToolbar)
+	{
+		instance->mainToolbar->autoSize();
 	}
 
 	instance->repaint();

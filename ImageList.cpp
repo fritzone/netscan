@@ -23,7 +23,7 @@ bool CImageList::addImage(LPCWSTR image)
 int newIndex = ImageList_Add(imageList, (HBITMAP)hbmp, NULL);
 	if(newIndex == -1)
 	{
-		MessageBox(NULL, L"Image load failure", L"Error", MB_OK);
+		//MessageBox(NULL, L"Image load failure", L"Error", MB_OK);
 		return false;
 	}
 

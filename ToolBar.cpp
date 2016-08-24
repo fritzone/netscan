@@ -17,7 +17,7 @@ CToolBar::CToolBar(CControl* _parent, LPCWSTR _images, int _nButtons) : CControl
 		0, 
 		TOOLBARCLASSNAME, 
 		NULL, 
-		WS_CHILD | WS_BORDER | CCS_ADJUSTABLE | TBSTYLE_TRANSPARENT | TBSTYLE_TOOLTIPS | TBSTYLE_FLAT, 
+		WS_CHILD | CCS_ADJUSTABLE | TBSTYLE_TOOLTIPS | TBSTYLE_TRANSPARENT | CCS_TOP, 
 		0, 0, 0, 0, 
 		_parent->getHandle(), 
 		(HMENU) 1, 
@@ -32,13 +32,15 @@ CToolBar::CToolBar(CControl* _parent, LPCWSTR _images, int _nButtons) : CControl
 	ShowWindow(hwnd, SW_SHOW); 
 
 	
-HBITMAP bmp = (HBITMAP)LoadImage((HINSTANCE)GetWindowLong(_parent->getHandle(), GWL_HINSTANCE),_images, IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_LOADMAP3DCOLORS);
+	HBITMAP bmp = (HBITMAP)LoadImage((HINSTANCE)GetWindowLong(_parent->getHandle(), 
+		GWL_HINSTANCE), _images, IMAGE_BITMAP, 0, 0, LR_LOADTRANSPARENT | LR_LOADMAP3DCOLORS);
 	if(bmp == NULL)
 	{
 		MessageBox(_parent->getHandle(), L"Toolbar creation: Cannot load bitmap", _images, MB_OK);
 		return;
 	}
-TBADDBITMAP addBmp;
+
+	TBADDBITMAP addBmp;
 	addBmp.hInst = NULL;
 	addBmp.nID = (UINT_PTR)bmp;
 

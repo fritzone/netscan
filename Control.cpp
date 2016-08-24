@@ -114,7 +114,7 @@ bool CControl::createWindowClass(WNDPROC _windowProcedure)
     windowClass.lpszMenuName			= NULL;									// No menu
     windowClass.cbClsExtra				= 0;									// No extra bytes after the window class
     windowClass.cbWndExtra				= 0;									// structure or the window instance
-	windowClass.hbrBackground			= (HBRUSH)GetStockObject(NULL_BRUSH);
+	windowClass.hbrBackground			= (HBRUSH)(COLOR_BTNFACE + 1);
 
     if (!RegisterClassEx (&windowClass))
     {
