@@ -74,6 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>E:\work\netscan\utils;E:\work\netscan\gui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>comctl32.lib;netapi32.lib;ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -121,95 +122,93 @@
     <Image Include="..\..\netscan\standard.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\netscan\AboutWindow.h" />
-    <ClInclude Include="..\..\netscan\ApplicationWindow.h" />
-    <ClInclude Include="..\..\netscan\CheckBox.h" />
-    <ClInclude Include="..\..\netscan\ColorChooserDialog.h" />
-    <ClInclude Include="..\..\netscan\ComboBox.h" />
-    <ClInclude Include="..\..\netscan\Computer.h" />
-    <ClInclude Include="..\..\netscan\Container.h" />
-    <ClInclude Include="..\..\netscan\Control.h" />
-    <ClInclude Include="..\..\netscan\control_ids.h" />
-    <ClInclude Include="..\..\netscan\Debugger.h" />
-    <ClInclude Include="..\..\netscan\drawing_tools.h" />
-    <ClInclude Include="..\..\netscan\GarbageBin.h" />
-    <ClInclude Include="..\..\netscan\IDGenerator.h" />
-    <ClInclude Include="..\..\netscan\ImageControl.h" />
-    <ClInclude Include="..\..\netscan\ImageList.h" />
-    <ClInclude Include="..\..\netscan\IPControl.h" />
-    <ClInclude Include="..\..\netscan\leaker.h" />
-    <ClInclude Include="..\..\netscan\ListBox.h" />
-    <ClInclude Include="..\..\netscan\MainMenu.h" />
-    <ClInclude Include="..\..\netscan\MainWindow.h" />
-    <ClInclude Include="..\..\netscan\manufacturers.h" />
-    <ClInclude Include="..\..\netscan\Menu.h" />
-    <ClInclude Include="..\..\netscan\MenuItem.h" />
-    <ClInclude Include="..\..\netscan\MouseCursor.h" />
-    <ClInclude Include="..\..\netscan\OwnerDrawControl.h" />
-    <ClInclude Include="..\..\netscan\PopupMenu.h" />
-    <ClInclude Include="..\..\netscan\PushButton.h" />
-    <ClInclude Include="..\..\netscan\RadioButton.h" />
-    <ClInclude Include="..\..\netscan\StandaloneWindow.h" />
-    <ClInclude Include="..\..\netscan\Static.h" />
-    <ClInclude Include="..\..\netscan\StatusBar.h" />
-    <ClInclude Include="..\..\netscan\stc_messages.h" />
-    <ClInclude Include="..\..\netscan\TabControl.h" />
-    <ClInclude Include="..\..\netscan\TabPage.h" />
-    <ClInclude Include="..\..\netscan\TextField.h" />
-    <ClInclude Include="..\..\netscan\ToolBar.h" />
-    <ClInclude Include="..\..\netscan\ToolButton.h" />
-    <ClInclude Include="..\..\netscan\ToolTip.h" />
-    <ClInclude Include="..\..\netscan\TreeControl.h" />
-    <ClInclude Include="..\..\netscan\TreeEntry.h" />
-    <ClInclude Include="..\..\netscan\TreeItem.h" />
-    <ClInclude Include="..\..\netscan\utils.h" />
-    <ClInclude Include="..\..\netscan\Window.h" />
-    <ClInclude Include="..\..\netscan\wind_upg.h" />
-    <ClInclude Include="resource.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\netscan\AboutWindow.cpp" />
-    <ClCompile Include="..\..\netscan\ApplicationWindow.cpp" />
-    <ClCompile Include="..\..\netscan\CheckBox.cpp" />
-    <ClCompile Include="..\..\netscan\ColorChooserDialog.cpp" />
-    <ClCompile Include="..\..\netscan\ComboBox.cpp" />
-    <ClCompile Include="..\..\netscan\Container.cpp" />
-    <ClCompile Include="..\..\netscan\Control.cpp" />
-    <ClCompile Include="..\..\netscan\control_ids.cpp" />
-    <ClCompile Include="..\..\netscan\Debugger.cpp" />
-    <ClCompile Include="..\..\netscan\GarbageBin.cpp" />
-    <ClCompile Include="..\..\netscan\IDGenerator.cpp" />
-    <ClCompile Include="..\..\netscan\ImageControl.cpp" />
-    <ClCompile Include="..\..\netscan\ImageList.cpp" />
-    <ClCompile Include="..\..\netscan\IPControl.cpp" />
-    <ClCompile Include="..\..\netscan\ListBox.cpp" />
-    <ClCompile Include="..\..\netscan\main.cpp" />
-    <ClCompile Include="..\..\netscan\MainMenu.cpp" />
-    <ClCompile Include="..\..\netscan\MainWindow.cpp" />
-    <ClCompile Include="..\..\netscan\Menu.cpp" />
-    <ClCompile Include="..\..\netscan\MenuItem.cpp" />
-    <ClCompile Include="..\..\netscan\MouseCursor.cpp" />
-    <ClCompile Include="..\..\netscan\OwnerDrawControl.cpp" />
-    <ClCompile Include="..\..\netscan\PopupMenu.cpp" />
-    <ClCompile Include="..\..\netscan\PushButton.cpp" />
-    <ClCompile Include="..\..\netscan\RadioButton.cpp" />
-    <ClCompile Include="..\..\netscan\StandaloneWindow.cpp" />
-    <ClCompile Include="..\..\netscan\Static.cpp" />
-    <ClCompile Include="..\..\netscan\StatusBar.cpp" />
-    <ClCompile Include="..\..\netscan\TabControl.cpp" />
-    <ClCompile Include="..\..\netscan\TabPage.cpp" />
-    <ClCompile Include="..\..\netscan\TextField.cpp" />
-    <ClCompile Include="..\..\netscan\ToolBar.cpp" />
-    <ClCompile Include="..\..\netscan\ToolButton.cpp" />
-    <ClCompile Include="..\..\netscan\ToolTip.cpp" />
-    <ClCompile Include="..\..\netscan\TreeControl.cpp" />
-    <ClCompile Include="..\..\netscan\TreeEntry.cpp" />
-    <ClCompile Include="..\..\netscan\TreeItem.cpp" />
-    <ClCompile Include="..\..\netscan\utils.cpp" />
-    <ClCompile Include="..\..\netscan\Window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\AboutWindow.cpp" />
+    <ClCompile Include="..\gui\ApplicationWindow.cpp" />
+    <ClCompile Include="..\gui\CheckBox.cpp" />
+    <ClCompile Include="..\gui\ColorChooserDialog.cpp" />
+    <ClCompile Include="..\gui\ComboBox.cpp" />
+    <ClCompile Include="..\gui\Container.cpp" />
+    <ClCompile Include="..\gui\Control.cpp" />
+    <ClCompile Include="..\gui\control_ids.cpp" />
+    <ClCompile Include="..\gui\Debugger.cpp" />
+    <ClCompile Include="..\gui\GarbageBin.cpp" />
+    <ClCompile Include="..\gui\IDGenerator.cpp" />
+    <ClCompile Include="..\gui\ImageControl.cpp" />
+    <ClCompile Include="..\gui\ImageList.cpp" />
+    <ClCompile Include="..\gui\IPControl.cpp" />
+    <ClCompile Include="..\gui\ListBox.cpp" />
+    <ClCompile Include="..\gui\Menu.cpp" />
+    <ClCompile Include="..\gui\MenuItem.cpp" />
+    <ClCompile Include="..\gui\MouseCursor.cpp" />
+    <ClCompile Include="..\gui\OwnerDrawControl.cpp" />
+    <ClCompile Include="..\gui\PopupMenu.cpp" />
+    <ClCompile Include="..\gui\PushButton.cpp" />
+    <ClCompile Include="..\gui\RadioButton.cpp" />
+    <ClCompile Include="..\gui\StandaloneWindow.cpp" />
+    <ClCompile Include="..\gui\Static.cpp" />
+    <ClCompile Include="..\gui\StatusBar.cpp" />
+    <ClCompile Include="..\gui\TabControl.cpp" />
+    <ClCompile Include="..\gui\TabPage.cpp" />
+    <ClCompile Include="..\gui\TextField.cpp" />
+    <ClCompile Include="..\gui\ToolBar.cpp" />
+    <ClCompile Include="..\gui\ToolButton.cpp" />
+    <ClCompile Include="..\gui\ToolTip.cpp" />
+    <ClCompile Include="..\gui\TreeControl.cpp" />
+    <ClCompile Include="..\gui\TreeEntry.cpp" />
+    <ClCompile Include="..\gui\TreeItem.cpp" />
+    <ClCompile Include="..\gui\Window.cpp" />
+    <ClCompile Include="..\main.cpp" />
+    <ClCompile Include="..\MainMenu.cpp" />
+    <ClCompile Include="..\MainWindow.cpp" />
+    <ClCompile Include="..\utils\utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\AboutWindow.h" />
+    <ClInclude Include="..\Computer.h" />
+    <ClInclude Include="..\Debugger.h" />
+    <ClInclude Include="..\gui\ApplicationWindow.h" />
+    <ClInclude Include="..\gui\CheckBox.h" />
+    <ClInclude Include="..\gui\ColorChooserDialog.h" />
+    <ClInclude Include="..\gui\ComboBox.h" />
+    <ClInclude Include="..\gui\Container.h" />
+    <ClInclude Include="..\gui\Control.h" />
+    <ClInclude Include="..\gui\drawing_tools.h" />
+    <ClInclude Include="..\gui\GarbageBin.h" />
+    <ClInclude Include="..\gui\IDGenerator.h" />
+    <ClInclude Include="..\gui\ImageControl.h" />
+    <ClInclude Include="..\gui\ImageList.h" />
+    <ClInclude Include="..\gui\IPControl.h" />
+    <ClInclude Include="..\gui\ListBox.h" />
+    <ClInclude Include="..\gui\Menu.h" />
+    <ClInclude Include="..\gui\MenuItem.h" />
+    <ClInclude Include="..\gui\MouseCursor.h" />
+    <ClInclude Include="..\gui\OwnerDrawControl.h" />
+    <ClInclude Include="..\gui\PopupMenu.h" />
+    <ClInclude Include="..\gui\PushButton.h" />
+    <ClInclude Include="..\gui\RadioButton.h" />
+    <ClInclude Include="..\gui\StandaloneWindow.h" />
+    <ClInclude Include="..\gui\Static.h" />
+    <ClInclude Include="..\gui\StatusBar.h" />
+    <ClInclude Include="..\gui\TabControl.h" />
+    <ClInclude Include="..\gui\TabPage.h" />
+    <ClInclude Include="..\gui\TextField.h" />
+    <ClInclude Include="..\gui\ToolBar.h" />
+    <ClInclude Include="..\gui\ToolButton.h" />
+    <ClInclude Include="..\gui\ToolTip.h" />
+    <ClInclude Include="..\gui\TreeControl.h" />
+    <ClInclude Include="..\gui\TreeEntry.h" />
+    <ClInclude Include="..\gui\TreeItem.h" />
+    <ClInclude Include="..\gui\Window.h" />
+    <ClInclude Include="..\gui\wind_upg.h" />
+    <ClInclude Include="..\leaker.h" />
+    <ClInclude Include="..\MainMenu.h" />
+    <ClInclude Include="..\MainWindow.h" />
+    <ClInclude Include="..\manufacturers.h" />
+    <ClInclude Include="..\stc_messages.h" />
+    <ClInclude Include="..\utils\utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
