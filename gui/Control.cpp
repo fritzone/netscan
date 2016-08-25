@@ -141,10 +141,10 @@ bool CControl::createControl()
 	}
 
 	hwnd = CreateWindowEx(
-		styleEx,									// Extended
+		styleEx | WS_EX_CONTROLPARENT,				// Extended
 		szClassName,   								// predefined class
 		text,			      						// text on the control
-		style,										// styles
+		style | WS_TABSTOP,		  				    // styles
 		x,         									// starting x position
 		y,         									// starting y position
 		w,        									// button width

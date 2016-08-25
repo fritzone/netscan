@@ -29,7 +29,7 @@ CTabControl::CTabControl(CContainer* _parent, int _x, int _y, int _w, int _h, in
  */
 bool CTabControl::createWindow()
 {
-	style = TCS_BUTTONS ;
+	style = TCS_BUTTONS | TCS_FOCUSNEVER;
 	styleEx = TCS_EX_FLATSEPARATORS ;
 	wcscpy(szClassName, WC_TABCONTROL);
 	return createControl();

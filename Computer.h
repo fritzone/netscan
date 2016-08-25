@@ -17,9 +17,7 @@ class CComputer : public CTreeEntry
 public:
 
 	CComputer(const wstring& _ip) : CTreeEntry(TREENTRY_COMPUTER), ip(_ip)
-	{
-
-	}
+	{}
 
 	std::wstring getIp() const { return ip; }
 	void setIp(std::wstring val) { ip = val; }

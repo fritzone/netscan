@@ -24,8 +24,6 @@ class CComputer;
 
 using namespace std;
 
-static const int MAX_THREADS = 50;
-
 /**
  */
 class CMainWindow: public CStandaloneWindow
@@ -147,14 +145,16 @@ private:
 
 	CStatusBar* statusBar;
 
+	CIPControl* ipLocalHost;
 	CIPControl* ipFrom;
 	CIPControl* ipTo;
 
 	CTreeControl* ipRangesTree;
 	CPushButton* ipRangesGo;
+	CPushButton* scanLocalhost;
 	CPushButton* ipRangesOptions;
 
-	CCheckBox* ipRangesRestricted;
+	CCheckBox* ipRangesRestricted = nullptr;
 
 	CImageList* imgTree;
 
@@ -191,6 +191,8 @@ public:
 	 */
     static LRESULT onDestroy(CMainWindow *instance, WPARAM wParam, LPARAM lParam);
     static LRESULT onSize(CMainWindow *instance, WPARAM wParam, LPARAM lParam);
+	static LRESULT onKeyUp(CMainWindow *instance, WPARAM wParam, LPARAM lParam);
+	static LRESULT onDlgCode(CMainWindow *instance, WPARAM wParam, LPARAM lParam);
 
 	/*
 	 * Message mapping
@@ -198,7 +200,13 @@ public:
 	BEGIN_MESSAGE_MAP(CMainWindow)
 		ON_MESSAGE(WM_DESTROY, onDestroy)
         ON_MESSAGE(WM_SIZE, onSize)
+		ON_MESSAGE(WM_KEYUP, onKeyUp)
+		ON_MESSAGE(WM_GETDLGCODE, onDlgCode)
 	END_MESSAGE_MAP(CMainWindow)
+
+	static const int WIDTH = 800;
+	static const int HEIGHT = 600;
+	static const size_t MAX_THREADS = 50;
 
 };
 

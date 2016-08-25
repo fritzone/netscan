@@ -40,6 +40,8 @@
 #include <AclAPI.h>
 // #include <netmon.h>
 #include "netsgui/resource.h"
+#include <utils.h>
+#include <algorithm>
 
 HANDLE CMainWindow::computerThreadMutex;
 vector<HANDLE> CMainWindow::threads;
@@ -63,7 +65,7 @@ CMainWindow* CMainWindow::instance = NULL;
 /**
  * Creates a new instance, based on the passed-in handle
  */
-CMainWindow::CMainWindow(HINSTANCE _hInst) : CStandaloneWindow(0, 0, 640, 480, 0, _hInst), 
+CMainWindow::CMainWindow(HINSTANCE _hInst) : CStandaloneWindow(0, 0, 800, 600, 0, _hInst), 
 mainTab(0), statusBar(0), ipRangesGo(0), ipRangesOptions(0), ipRangesTree(0)
 {
 	// Settings that affect how the window will look
@@ -111,11 +113,11 @@ bool CMainWindow::createToolBar(HWND hWndParent)
  */
 bool CMainWindow::createContent()
 {
-int statSize[] = {120, 240, -1};
+	int statSize[] = {120, 240, -1};
 
 	createToolBar(hwnd);
 
-	imgTree = new CImageList(16,16);
+	imgTree = new CImageList(16, 16, this);
 	
 	imgTree->addImage(L"icn_zero.bmp");				// 0
 	imgTree->addImage(L"icn_gray.bmp");				// 1
@@ -143,25 +145,27 @@ int statSize[] = {120, 240, -1};
 	DrawMenuBar(hwnd);
 
 	mainTab = new CTabControl(this, 10, 60, w, h, TAB_MAIN);
-	mainTab->setButtonStyle();
 	ipRangeTabPage = new CTabPage(L"IP Range Scan");
-	domainsTabPage = new CTabPage(L"Domain Scan");	
 
 	mainTab->addPage(ipRangeTabPage);
-	mainTab->addPage(domainsTabPage);
 
-	ipFrom = new CIPControl(this, 10, 65, 140, 20, 888, L"From", 35);
+	ipLocalHost = new CIPControl(this, 10, 65, 140, 20, 887, L"Localhost", 55);
+	ipLocalHost->disable();
+
+	ipFrom = new CIPControl(this, 10, 95, 140, 20, 888, L"From", 55);
 	ipRangeTabPage->addControl(ipFrom);
+	ipLocalHost->setText(widen_string(get_local_ip()).c_str());
 
-	ipTo = new CIPControl(this, 190, 65, 140, 20, 889, L"To", 20);
+	ipTo = new CIPControl(this, 210, 95, 140, 20, 889, L"To", 20);
 	ipRangeTabPage->addControl(ipTo);
 
-	ipRangesGo = new CPushButton(this, 640 - 75, 65, 65, 20, IPRANGES_GO, L"Go", L"Start an IP Range Scan");
-	ipRangesOptions = new CPushButton(this, 640 - 65 - 75, 65, 65, 20, IPRANGES_GO, L"Options", L"Options... ie. what to retrieve");
+	ipRangesOptions = new CPushButton(this, WIDTH - 95 - 75, 65, 95, 50, IPRANGES_OPTIONS, L"Scan Options", L"Options... ie. what to retrieve");
 
-	ipRangesTree = new CTreeControl(this, 5, 90, 320, 400, TREE_IPLIST);
+	scanLocalhost = new CPushButton(this, WIDTH - 75, 65, 125, 25, SCAN_LOCALHOST, L"Scan localhost", L"Start an IP Range Scan");
+	ipRangesGo = new CPushButton(this,    WIDTH - 75, 90, 125, 25, IPRANGES_GO, L"Scan Range", L"Start an IP Range Scan");
+
+	ipRangesTree = new CTreeControl(this, 5, 122, 320, 400, TREE_IPLIST);
 	ipRangesTree->setImages(imgTree);
-	ipRangesRestricted = new CCheckBox(this, 360, 65, 130, 20, 999, L"Restricted range", L"Check this if you don't want the ip \"roll over\"");
 
 	statusBar = new CStatusBar(this, STB_MAIN, 3, statSize);
 	return true;
@@ -186,7 +190,7 @@ void CMainWindow::onAbout(CMainWindow* instance)
 /**
  * Prepares the IP address based on the four ints, and puts them into addr
  */
-void prepareIp(unsigned wchar_t ip1, unsigned wchar_t ip2, unsigned wchar_t ip3, unsigned wchar_t ip4, wchar_t* addr)
+void prepareIp(wchar_t ip1, wchar_t ip2, wchar_t ip3, wchar_t ip4, wchar_t* addr)
 {
 	wsprintf(addr, L"%d.%d.%d.%d", ip1, ip2, ip3, ip4);
 }
@@ -254,7 +258,8 @@ void CMainWindow::onGo(CMainWindow * instance)
 	wchar_t full_ip[32];
 	vector<wstring> allIps;
 	allIps.clear();
-	bool restricted = instance->ipRangesRestricted->isChecked();
+
+	bool restricted = instance->ipRangesRestricted != nullptr && instance->ipRangesRestricted->isChecked();
 
 	int ipp11 = _wtoi(cip1_1),
 		ipp12 = _wtoi(cip2_1),
@@ -297,7 +302,7 @@ void CMainWindow::onGo(CMainWindow * instance)
 
 	computerThreadMutex = CreateMutex(0, 0, L"ComputerThreadMutex");
 
-	for(int i=0; i<allIps.size(); i++)
+	for(size_t i=0; i<allIps.size(); i++)
 	{
 		CComputer* newComputer = new CComputer(allIps[i]);
 		instance->computers.push_back(newComputer);
@@ -306,10 +311,10 @@ void CMainWindow::onGo(CMainWindow * instance)
 
 	int compsPerThread = instance->computers.size() / MAX_THREADS + 1;
 	if(compsPerThread == 0) compsPerThread = 1;
-	int threadCo = min(instance->computers.size(), MAX_THREADS-((compsPerThread-1)*2) + 1);
-	int startRange = 0;
-	int endRange = startRange + compsPerThread;
+	int threadCo = std::min<int>( (int)instance->computers.size(), MAX_THREADS);
 
+	size_t startRange = 0;
+	size_t endRange = startRange + compsPerThread;
 
 	for(int i=0; i<threadCo; i++)
 	{
@@ -478,7 +483,7 @@ wstring nrAsString(DWORD nr)
 DWORD CMainWindow::ComputerThread(LPVOID computer)
 {
 	CMainWindow::CVectorRange* range = (CMainWindow::CVectorRange*)computer;
-	if(range->start == range->end) return 0;
+	if(range->start <= range->end) return 0;
 
 	DWORD dwWaitResult; 
 	bool nameFound = true;
@@ -492,7 +497,7 @@ DWORD CMainWindow::ComputerThread(LPVOID computer)
 	case WAIT_OBJECT_0: 
 		try 
 		{
-			for(int i=range->start; i<=range->end; i++)
+			for(size_t i=range->start; i<=range->end; i++)
 			{
 				if(i < range->theWindow->computers.size())
 				{
@@ -555,7 +560,7 @@ DWORD CMainWindow::ComputerThread(LPVOID computer)
 	case WAIT_OBJECT_0: 
 		try 
 		{
-			for(int i=range->start; i<=range->end; i++)
+			for(size_t i=range->start; i<=range->end; i++)
 			{
 				if(i < range->theWindow->computers.size())
 				{
@@ -594,7 +599,7 @@ DWORD CMainWindow::ComputerThread(LPVOID computer)
 							tree->addItem(sv102Type);
 
 							wstring t = range->theWindow->getComputerType(buf->sv102_type);
-							int j=0;
+							size_t j=0;
 							while (j<t.length())
 							{
 								wstring seq = L"";
@@ -658,7 +663,7 @@ DWORD CMainWindow::ComputerThread(LPVOID computer)
 								tree->addItem(sv101Type);
 
 								wstring t = range->theWindow->getComputerType(buf->sv101_type);
-								int j=0;
+								size_t j=0;
 								while (j<t.length())
 								{
 									wstring seq = L"";
@@ -746,7 +751,7 @@ DWORD CMainWindow::ComputerThread(LPVOID computer)
 	case WAIT_OBJECT_0: 
 		try 
 		{
-			for(int i=range->start; i<=range->end; i++)
+			for(size_t i=range->start; i<=range->end; i++)
 			{
 				if(i < range->theWindow->computers.size())
 				{
@@ -874,7 +879,7 @@ DWORD CMainWindow::ComputerThread(LPVOID computer)
 											// MAC Address
 											wstring wmac((LPWSTR)pTmpBuf->svti1_networkaddress);
 											wstring wmac2(L"");
-											for(int k=0; k<wmac.length(); k++)
+											for(size_t k=0; k<wmac.length(); k++)
 											{
 												wmac2 += wmac[k];
 												if(k%2==1) wmac2 += L":";
@@ -949,7 +954,7 @@ DWORD CMainWindow::ComputerThread(LPVOID computer)
 	case WAIT_OBJECT_0: 
 		try 
 		{
-			for(int j=range->start; j<=range->end;j++)
+			for(size_t j=range->start; j<=range->end;j++)
 			{
 				if(j < range->theWindow->computers.size())
 				{
@@ -1022,7 +1027,7 @@ DWORD CMainWindow::ComputerThread(LPVOID computer)
 	case WAIT_OBJECT_0: 
 		try 
 		{
-			for(int j=range->start; j<=range->end; j++)
+			for(size_t j=range->start; j<=range->end; j++)
 			{
 				if(j < range->theWindow->computers.size())
 				{
@@ -1139,7 +1144,7 @@ DWORD CMainWindow::ComputerThread(LPVOID computer)
 	case WAIT_OBJECT_0: 
 		try 
 		{
-			for(int j=range->start; j<=range->end;j++)
+			for(size_t j=range->start; j<=range->end;j++)
 			{
 				if(j < range->theWindow->computers.size())
 				{
@@ -1224,6 +1229,24 @@ LRESULT CMainWindow::onDestroy(CMainWindow* instance, WPARAM wParam, LPARAM lPar
 	return 0;
 }
 
+LRESULT CMainWindow::onKeyUp(CMainWindow *instance, WPARAM wParam, LPARAM lParam)
+{
+	if (wParam == VK_TAB)
+	{
+		int i = 0;
+	}
+	return 0;
+}
+
+LRESULT CMainWindow::onDlgCode(CMainWindow *instance, WPARAM wParam, LPARAM lParam)
+{
+	if (wParam == VK_TAB)
+	{
+		int i = 0;
+	}
+	return 0;
+}
+
 /**
 * Message handler for WM_DESTROY
 */
@@ -1251,12 +1274,24 @@ LRESULT CMainWindow::onSize(CMainWindow* instance, WPARAM wParam, LPARAM lParam)
 	if(instance->ipRangesGo)
 	{
 		RECT rtt = rt;
-		rtt.left = rtt.right - instance->ipRangesGo->width() - 4;
+		rtt.left = rtt.right - instance->ipRangesGo->width() - 6;
 		rtt.top = instance->ipRangesGo->top();
 		rtt.right = rtt.left + instance->ipRangesGo->width();
 		rtt.bottom = rtt.top + instance->ipRangesGo->height();
 		instance->ipRangesGo->move(rtt);
 	}
+
+	
+	if (instance->scanLocalhost)
+	{
+		RECT rtt = rt;
+		rtt.left = rtt.right - instance->scanLocalhost->width() - 6;
+		rtt.top = instance->scanLocalhost->top();
+		rtt.right = rtt.left + instance->scanLocalhost->width();
+		rtt.bottom = rtt.top + instance->scanLocalhost->height();
+		instance->scanLocalhost->move(rtt);
+	}
+
 	if(instance->ipRangesOptions)
 	{
 		RECT rtt = rt;

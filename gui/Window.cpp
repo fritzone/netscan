@@ -150,7 +150,7 @@ LRESULT CWindow::basicWindowProcedure (HWND hwnd, UINT msg, WPARAM wparam, LPARA
 	{
 		if(msg == WM_NOTIFY)
 		{
-		LRESULT lr = handleNotifyMessages(hwnd, msg, wparam, lparam);
+			LRESULT lr = handleNotifyMessages(hwnd, msg, wparam, lparam);
 			if(lr != NOT_HANDLED_MESSAGE)
 			{
 				return lr;
@@ -161,7 +161,7 @@ LRESULT CWindow::basicWindowProcedure (HWND hwnd, UINT msg, WPARAM wparam, LPARA
 		CWindow* win = windowInstances[hwnd];
 		if(win)
 		{
-	LRESULT res = win->handleMessage(msg, win, wparam, lparam);
+			LRESULT res = win->handleMessage(msg, win, wparam, lparam);
 			if(res != NOT_HANDLED_MESSAGE)
 			{
 				return res;
@@ -174,7 +174,7 @@ LRESULT CWindow::basicWindowProcedure (HWND hwnd, UINT msg, WPARAM wparam, LPARA
 	{
 	case WM_COMMAND:
 		{
-		DWORD id = LOWORD(wparam);
+			DWORD id = LOWORD(wparam);
 
 			if(windowInstances.find(hwnd) != windowInstances.end())
 			{
@@ -200,7 +200,7 @@ LRESULT CWindow::basicWindowProcedure (HWND hwnd, UINT msg, WPARAM wparam, LPARA
 		{
 //			LOG_X("Got WM_DRAWITEM for:", ((LPDRAWITEMSTRUCT) lparam)->hwndItem);
 			// find the callbacked control or something similar...
-		CWindow* theWindow = windowInstances[hwnd];
+			CWindow* theWindow = windowInstances[hwnd];
 			for(size_t i=0; i<theWindow->controls.size(); i++)
 			{
 				if(dynamic_cast<CTabControl*>(theWindow->controls[i])!=NULL)
@@ -263,8 +263,15 @@ int CWindow::showModal()
 MSG messages;
 	while (GetMessage (&messages, NULL, 0, 0) && !canHide)
 	{
-		TranslateMessage(&messages);
-		DispatchMessage(&messages);
+		if (IsDialogMessage(getHandle(), &messages))
+		{
+
+		}
+		else
+		{
+			TranslateMessage(&messages);
+			DispatchMessage(&messages);
+		}
 	}
 
 	return pressedButton;

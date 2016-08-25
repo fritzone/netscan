@@ -3,6 +3,10 @@
 #include "utils.h"
 #include "Debugger.h"
 #include "GarbageBin.h"
+#include <winsock.h>
+#include <locale>
+#include <codecvt>
+#include <string>
 
 #include "leaker.h"
 
@@ -368,5 +372,35 @@ string deliverName(string base, int ctr)
 char s[256];
 	sprintf(s,"_%d", ctr);
 	string result = base + s;
+	return result;
+}
+
+std::string get_local_ip()
+{
+	char ac[80];
+	if (gethostname(ac, sizeof(ac)) == SOCKET_ERROR) {
+		return "";
+	}
+	struct hostent *phe = gethostbyname(ac);
+	if (phe == 0) {
+		return "";
+	}
+
+	std::string result = "";
+
+	for (int i = 0; phe->h_addr_list[i] != 0; ++i) {
+		struct in_addr addr;
+		memcpy(&addr, phe->h_addr_list[i], sizeof(struct in_addr));
+		result += inet_ntoa(addr);
+		result += ".";
+	}
+
+	return result;
+}
+
+std::wstring widen_string(const std::string& s)
+{
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	std::wstring result = converter.from_bytes(s);
 	return result;
 }

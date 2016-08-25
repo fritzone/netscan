@@ -10,7 +10,8 @@
 /**
  * Creates a new text field
  */
-CIPControl::CIPControl(CWindow* _mainw, int _x, int _y, int _w, int _h, DWORD _id, const wchar_t* _statText, int _stw):CControl(_mainw, _x, _y, _w, _h, L"", _id)
+CIPControl::CIPControl(CWindow* _mainw, int _x, int _y, int _w, int _h, DWORD _id, const wchar_t* _statText, int _stw)
+	: CControl(_mainw, _x, _y, _w, _h, L"", _id)
 {
 RECT a;
 	if(_statText)
@@ -29,8 +30,6 @@ RECT a;
 	}
 
 	x += a.right;
-	style |= WS_TABSTOP;
-	styleEx |= WS_EX_CONTROLPARENT;
 	createWindow();
     SendMessage(hwnd, WM_SETFONT, (WPARAM)sysFont, TRUE);
 }
@@ -124,7 +123,7 @@ void CIPControl::setLabel(wstring labelText)
  */
 bool CIPControl::createWindow()
 {
-	style =  ES_AUTOHSCROLL;
+	style =  WS_OVERLAPPED | WS_CHILD | WS_TABSTOP;
 	wcscpy(szClassName, WC_IPADDRESS);
 	createControl();
 	return true;

@@ -9,7 +9,7 @@
  */
 CStatic::CStatic(CWindow* _mainw, int _x, int _y, int _w, int _h, wchar_t* _text):CControl(_mainw, _x, _y, _w, _h, _text, 0)
 {
-	//style = SS_LEFT | SS_SIMPLE;
+	style = SS_LEFT;
 	
 	createWindow();
 	SetWindowText(hwnd, (LPCWSTR)_text);

@@ -17,7 +17,7 @@ CToolBar::CToolBar(CControl* _parent, LPCWSTR _images, int _nButtons) : CControl
 		0, 
 		TOOLBARCLASSNAME, 
 		NULL, 
-		WS_CHILD | CCS_ADJUSTABLE | TBSTYLE_TOOLTIPS | TBSTYLE_TRANSPARENT | CCS_TOP, 
+		WS_CHILD | CCS_ADJUSTABLE | TBSTYLE_TOOLTIPS | CCS_TOP, 
 		0, 0, 0, 0, 
 		_parent->getHandle(), 
 		(HMENU) 1, 

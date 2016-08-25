@@ -75,4 +75,8 @@ long hexToInt(string _s);
 // delivers the concatenation of the name with a number
 string deliverName(string base, int ctr);
 
+std::string get_local_ip();
+
+std::wstring widen_string(const std::string&);
+
 #endif

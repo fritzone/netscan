@@ -4,6 +4,9 @@
 #include "wind_upg.h"
 #include <WTypes.h>
 #include <CommCtrl.h>
+
+class CWindow;
+
 /**
  * This class represents an image list, used in TreeControls and other common controls
  */
@@ -16,7 +19,7 @@ public:
 	/**
 	 * Creates a new ImageList, by specifying the width and the height
 	 */
-	CImageList(int _width, int _height);
+	CImageList(int _width, int _height, CWindow* parent);
 
 	/**
 	 * Adds an iamge to the list
@@ -38,6 +41,9 @@ private:
 
 	// the height of the images
 	int cy;
+
+	// the handle ofthe parent
+	HWND hParent;
 
 };
 

@@ -1,6 +1,8 @@
 #ifndef _WIND_UPG_H_
 #define _WIND_UPG_H_
 
+#define NOMINMAX
+
 // the role of this header file is to include the windows header and to 'upgrade' it
 // to XP so that fancy features will be enabled, such as mousewhell
 // 

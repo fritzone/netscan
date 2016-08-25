@@ -1,4 +1,5 @@
 #include <float.h>
+#include <iostream>
 #include "wind_upg.h"
 
 // Windows used in the application
@@ -29,6 +30,8 @@ CAboutWindow* aboutWindow = NULL;
  */
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR args, int style)
 {
+
+	std::cout << "aaa";
 	// firstly: Init the Common Controls
 	INITCOMMONCONTROLSEX icex;
 
